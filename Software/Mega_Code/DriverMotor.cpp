@@ -11,6 +11,7 @@ DriverMotor::DriverMotor(int position){
 }
 
 void DriverMotor::setSpeed(int speed){
+    speed %= 255;
     if(speed == 0) {
         this->motor.run(RELEASE);
     } else if(speed < 0) {
