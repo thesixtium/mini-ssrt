@@ -7,17 +7,24 @@
 DriverMotor::DriverMotor(int position){
   AF_DCMotor motor(position);
   this->motor = motor;
-  this->setSpeed(0);
+  this->set_speed(current_speed);
 }
 
-void DriverMotor::setSpeed(int speed){
-    speed %= 255;
-    if(speed == 0) {
+void DriverMotor::set_speed(int target_speed){
+    target_speed %= 255;
+    if(target_speed == 0) {
         this->motor.run(RELEASE);
-    } else if(speed < 0) {
+    } else if(target_speed < 0) {
         this->motor.run(BACKWARD);
     } else {
         this->motor.run(FORWARD);
     }
-    motor.setSpeed(speed);
+    
+    this->current_speed = target_speed;
+    motor.setSpeed(this->current_speed);
+}
+
+void DriverMotor::change_speed(int change){
+    this->current_speed += change%255;
+    this->set_speed(this->current_speed);
 }

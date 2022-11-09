@@ -10,10 +10,12 @@
 class DriverMotor {
 private:
     AF_DCMotor motor = 0;
+    int current_speed;
 
 public:
     DriverMotor(int position);
-    void setSpeed(int speed);
+    void set_speed(int target_speed);
+    void change_speed(int change);
 };
 
 
